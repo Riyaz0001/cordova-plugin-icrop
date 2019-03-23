@@ -36,10 +36,10 @@ plugins.crop.promise('/path/to/image', options)
 })
 ```
 
-## Ionic V1
+## Ionic v1/v2/V3/v4
 
 ```js
-window.plugins.icrop('/path/to/image', options)
+window.plugins.crop('/path/to/image', options)
 .then(function success (newPath) {
 	console.log("Cropped image path: " + newPath);
 	// crop result
