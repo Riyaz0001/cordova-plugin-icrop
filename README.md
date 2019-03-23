@@ -6,9 +6,7 @@
 ## Install
 
 ```
-$ cordova plugin add --save cordova-plugin-icrop
-
-& cordova plugin add https://github.com/isathyam/cordova-plugin-icrop.git
+& cordova plugin add https://github.com/Riyaz0001/cordova-plugin-icrop.git
 ```
 
 NOTE: Make sure your Cordova CLI version is 5.0.0+ (check with cordova -v). Cordova 4.x and below uses the now deprecated Cordova Plugin Registry as its plugin repository, so using a version of Cordova 4.x or below will result in installing an old version of this plugin.
