@@ -18,7 +18,7 @@
   </engines>
 
   <js-module src="www/icrop.js" name="CropPlugin">
-    <clobbers target="plugins.crop" />
+    <clobbers target="plugins.cropImage" />
   </js-module>
 
   <!-- ios -->
