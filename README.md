@@ -14,7 +14,8 @@ NOTE: Make sure your Cordova CLI version is 5.0.0+ (check with cordova -v). Cord
 ## Usage
 
 ```js
-plugins.crop(function success () {
+var options = { sourceType: 1 };
+plugins.cropImage(function success () {
 
 }, function fail () {
 
@@ -37,8 +38,8 @@ plugins.crop.promise('/path/to/image', options)
 ## Ionic v1/v2/V3/v4
 
 ```js
-var options = { quality: 100 }
-window.plugins.cropImage('/path/to/image', options)
+var options = { sourceType: 1 };
+(<any>window).plugins.cropImage('/path/to/image', options)
 .then(function success (newPath) {
 	console.log("Cropped image path: " + newPath);
 	// crop result
