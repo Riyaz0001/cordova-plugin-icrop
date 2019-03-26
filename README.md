@@ -22,39 +22,6 @@ plugins.cropImage(function success () {
 }, '/path/to/image', options)
 ```
 
-or, if you are running on an environment that supports Promises
-(Crosswalk, Android >= KitKat, iOS >= 8)
-
-```js
-plugins.crop.promise('/path/to/image', options)
-.then(function success (newPath) {
-
-})
-.catch(function fail (err) {
-
-})
-```
-
-## Ionic v1/v2/V3/v4
-
-```js
-var options = { sourceType: 1 };
-(<any>window).plugins.cropImage('/path/to/image', options)
-.then(function success (newPath) {
-	console.log("Cropped image path: " + newPath);
-	// crop result
-})
-.catch(function fail (err) {
-	console.log(err)
-})
-```
-
-## API
-
- * quality: Number
-
-The resulting JPEG quality. default: 100
-
 ## Ionic / Typescript Example Angular 2 Service
 
 <img src="preview.gif"  width="800" height="600" style="max-width:100%;">
@@ -81,34 +48,34 @@ export class CameraService {
   constructor(public platform: Platform) {}
 
   // Return a promise to catch errors while loading image
-  getMedia(): Promise<any> {
-    return new Promise((resolve, reject) => {
-      // Get Image from ionic-native's built in camera plugin
-      Camera.getPicture(this.options).then((fileUri) => {
-        // Crop Image, on android this returns something like, '/storage/emulated/0/Android/...'
-        // Only giving an android example as ionic-native camera has built in cropping ability
-        if (this.platform.is('android') {
-          // Modify fileUri format, may not always be necessary
-          fileUri = 'file://' + fileUri;
-          const options = { quality: 100 };
-          /* Using cordova-plugin-icrop starts here */
-          plugins.crop.promise(fileUri, options).then( (path) => {
-            // path looks like 'file:///storage/emulated/0/Android/data/com.foo.bar/cache/1477008080626-cropped.jpg?1477008106566'
-            console.log('Cropped Image Path!: ' + path);
-            // Do whatever you want with new path such as read in a file
-            // Here we resolve the path to finish, but normally you would now want to read in the file
-            resolve(path);
-          }).catch( (error) => {
-            reject(error);
-          });
-        }
-      }).catch((error) => {
-        reject(error);
-      }
+    getMedia(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            // Get Image from ionic-native's built in camera plugin
+            Camera.getPicture(this.options).then((fileUri) => {
+                // Crop Image, on android this returns something like, '/storage/emulated/0/Android/...'
+                // Only giving an android example as ionic-native camera has built in cropping ability
+                if (this.platform.is('android') {
+                    // Modify fileUri format, may not always be necessary
+                    fileUri = 'file://' + fileUri;
+                    var options = { sourceType: 1 };
+                    /* Using cordova-plugin-icrop starts here */
+
+                    (<any>window).plugins.cropImage(function (path) {
+                        // path looks like 'file:///storage/emulated/0/Android/data/com.foo.bar/cache/1477008080626-cropped.jpg?1477008106566'
+                        console.log('Cropped Image Path!: ' + path);
+                        // Do whatever you want with new path such as read in a file
+                        // Here we resolve the path to finish, but normally you would now want to read in the file
+                        resolve(path);
+
+                    }, function (error) {
+                        reject(error);
+
+                    }, fileUri, options);
+
+                });
+        });
     });
-  }
-  
-}  
+}
 ```
 
 
